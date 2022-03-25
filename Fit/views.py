@@ -30,3 +30,38 @@ def blog_single(request):
 
 def services(request):
     return render(request,"Fit/services.html",{})
+
+def login(request):
+    if request.method=="POST":
+        username=request.POST["user"]
+        password=request.POST["pass"]
+
+        user=auth.authenticate(username=username,password=password)
+        if user is not None:
+            auth.login(request,user)
+            return redirect("/")
+        else:
+            print("BYE")
+
+    else:
+        return render(request,"Fit/login.html",{})
+
+
+def signup(request):
+    if request.method=="POST":
+        first_name=request.POST["first"]
+        last_name=request.POST["last"]
+        username=request.POST["user"]
+        password1=request.POST["p1"]
+        password2=request.POST["p2"]
+        email=request.POST["email"]
+
+        if password1==password2:
+             user=User.objects.create_user(first_name=first_name,last_name=last_name,username=username,email=email,password=password1)
+             user.save()
+             return redirect("/")
+        else:
+            print("Error")
+
+    else:
+        return render(request,"Fit/signup.html",{})

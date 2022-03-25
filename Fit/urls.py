@@ -12,4 +12,6 @@ path("blog_single",views.blog_single,name="single"),
 path("blog",views.blog,name="blog"),
 path("doctors",views.doctors,name="doctors"),
 path("services",views.services,name="services"),
+path("login",views.login,name="login"),
+path("signup",views.signup,name="signup"),
 ] 
