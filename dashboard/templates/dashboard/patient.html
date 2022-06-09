@@ -1,0 +1,261 @@
+{% extends 'dashboard/base_template.html' %}
+{% block dashboard-page-active %}mm-active{% endblock %}
+{% block pagetitle %}Dashboard{% endblock %} {% block content %}
+<style>
+    body {
+        background: #fafafa url(https://jackrugile.com/images/misc/noise-diagonal.png);
+        color: #444;
+        font: 100%/30px 'Helvetica Neue', helvetica, arial, sans-serif;
+        text-shadow: 0 1px 0 #fff;
+    }
+    
+    strong {
+        font-weight: bold; 
+    }
+    
+    em {
+        font-style: italic; 
+    }
+    
+    table {
+        background: #f5f5f5;
+        border-collapse: separate;
+        box-shadow: inset 0 1px 0 #fff;
+        font-size: 12px;
+        line-height: 24px;
+        margin: 30px auto;
+        text-align: left;
+        width: 800px;
+    }	
+    
+    th {
+        background-color:lightblue;
+        {% comment %} background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444); {% endcomment %}
+        {% comment %} border-left: 1px solid #555;
+        border-right: 1px solid #777;
+        border-top: 1px solid #555;
+        border-bottom: 1px solid #333;
+        box-shadow: inset 0 1px 0 #999; {% endcomment %}
+        color:black;
+      font-weight: bold;
+        padding: 10px 15px;
+        position: relative;
+        {% comment %} text-shadow: 0 1px 0 #000;	 {% endcomment %}
+    }
+    
+    th:after {
+        {% comment %} background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.08)); {% endcomment %}
+        content: '';
+        display: block;
+        height: 25%;
+        left: 0;
+        margin: 1px 0 0 0;
+        position: absolute;
+        top: 25%;
+        width: 100%;
+    }
+    
+    th:first-child {
+        {% comment %} border-left: 1px solid #777;	 {% endcomment %}
+        {% comment %} box-shadow: inset 1px 1px 0 #999; {% endcomment %}
+    }
+    
+    th:last-child {
+        {% comment %} box-shadow: inset -1px 1px 0 #999; {% endcomment %}
+    }
+    
+    td {
+        border-right: 1px solid #fff;
+        border-left: 1px solid #e8e8e8;
+        border-top: 1px solid #fff;
+        border-bottom: 1px solid #e8e8e8;
+        padding: 10px 15px;
+        position: relative;
+        transition: all 300ms;
+    }
+    
+    td:first-child {
+        box-shadow: inset 1px 0 0 #fff;
+    }	
+    
+    td:last-child {
+        border-right: 1px solid #e8e8e8;
+        box-shadow: inset -1px 0 0 #fff;
+    }	
+    
+    tr {
+        background: url(https://jackrugile.com/images/misc/noise-diagonal.png);	
+    }
+    
+    tr:nth-child(odd) td {
+        background: #f1f1f1 url(https://jackrugile.com/images/misc/noise-diagonal.png);	
+    }
+    
+    tr:last-of-type td {
+        box-shadow: inset 0 -1px 0 #fff; 
+    }
+    
+    tr:last-of-type td:first-child {
+        box-shadow: inset 1px -1px 0 #fff;
+    }	
+    
+    tr:last-of-type td:last-child {
+        box-shadow: inset -1px -1px 0 #fff;
+    }	
+    
+    tbody:hover td {
+        color: transparent;
+        text-shadow: 0 0 3px #aaa;
+    }
+    
+    tbody:hover tr:hover td {
+        color: #444;
+        text-shadow: 0 1px 0 #fff;
+    }
+      
+</style>
+
+
+<div class="app-main__inner">
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="fa-solid fa-person"></i>
+                </div>
+                <div>Patients
+                    <div class="page-title-subheading">Hi, welcome back</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-card mb-3">
+        <h5 class="card-title">Record</h5>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-12 widget-content">
+                    <div class="widget-content-outer">
+                        <div class="widget-content-wrapper">
+                            <div class="widget-content-left">
+                                <div class="widget-heading">Patients Record</div>
+                                
+                               
+                                  
+                                  </table>
+
+                                  <table class="fixed_headers">
+                                   
+                                    <thead>
+                                        <tr>
+                                            <th>Patient Details</th>
+                                            <th>Username</th>
+                                            <th>Age</th>
+                                            <th>Address</th>
+                                          </tr>
+                                    </thead>
+                                    {%for patient  in Patient %}
+                                    <tbody>
+                                        <tr>
+                                        <td> <a href="{%url 'dashboard:pat' patient.id%}"><button type="button" class="btn btn-primary">Details</button></a></td>
+                                        <td>{{ patient.user}}</td>
+                                        <td>{{ patient.age}}</td>
+                                        <td>{{ patient.address}}</td>       
+                                        </tr>
+                                        
+                                    </tbody>
+                                    {% endfor %}
+                                  </table>
+                                 
+                            </div>
+
+
+                            <div class="widget-content-right">
+                                <div class="widget-numbers text-success">{{administrators.count}}</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {% comment %} <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content">
+                    <div class="widget-content-outer">
+                        <div class="widget-content-wrapper">
+                            <div class="widget-content-left">
+                                <div class="widget-heading">Posts</div>
+                                <div class="widget-subheading">Total Number of Posts</div>
+                            </div>
+                            <div class="widget-content-right">
+                                <div class="widget-numbers text-primary">Notin</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div> {% endcomment %}
+            {% comment %} <div class="col-md-6">
+                <div class="card mb-3 widget-content">
+                    <div class="widget-content-outer">
+                        <div class="widget-content-wrapper">
+                            <div class="widget-content-left">
+                                <div class="widget-heading">Services</div>
+                                <div class="widget-subheading">Total Number of Services</div>
+                            </div>
+                            <div class="widget-content-right">
+                                <div class="widget-numbers text-warning">service</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h5 class="ml-2">About Sinel Hospital</h5> {% endcomment %}
+
+        {% comment %} <div class="row">
+            <div class="col-md-6 p-2">
+                <div class="card">
+                    <div class="card-body mb-3">
+                        <h5 class="card-title">Overview</h5>
+                       Hospital
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 p-2">
+                <div class="card">
+                    <div class="card-body mb-3">
+                        <h5 class="card-title">Mission</h5>
+                       about mission
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 p-2">
+                <div class="card">
+                    <div class="card-body mb-3">
+                        <h5 class="card-title">Vision</h5>
+                      about vision
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 p-2">
+                <div class="card">
+                    <div class="card-body mb-3">
+                        <h5 class="card-title">Value</h5>
+                        about value
+                    </div>
+                </div>
+            </div>
+
+
+        </div> {% endcomment %}
+
+
+
+
+
+    </div>
+</div>
+{% endblock %}

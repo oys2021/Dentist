@@ -4,4 +4,4 @@ from Fit.models import *
 # https://streambuddy.live/
 admin.site.register(Appoint)
 admin.site.register(Patient)
-admin.site.register(Doctor)
+admin.site.register(Dentist)

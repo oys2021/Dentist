@@ -22,8 +22,9 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",include("Fit.urls")),
-    path("dashboard",include("dashboard.urls")),
-    path("account",include("accounts.urls"))
+    path("dashboard/",include("dashboard.urls")),
+    path("account",include("accounts.urls")),
+    path('api/', include('dentistapi.urls')),
   
 ]
 urlpatterns +=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

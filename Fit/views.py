@@ -2,83 +2,53 @@ from unicodedata import name
 from urllib import request
 from django.shortcuts import render
 from django.http import response
-from django.contrib.auth.models import auth
+from django.contrib.auth.models import auth,User
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404,redirect
-from .models import  Appoint, Doctor, Patient
-from django.conf import settings
-User = settings.AUTH_USER_MODEL
-
-from django.contrib import messages
-# Create your views here.
-# def home(request):
-#    
-#        
-#        
-#        
-#        
-
-#          appoint=Appointment.objects.create()
-        
-       
-#        
-
-       
-        
-
-        
-       
-#        
-    
-#     else:
-#        
+from .models import  Appoint, Dentist,UserProfile
+from Fit.forms import AppointmentForm,ProfileForm
+from django.views.generic import View
+from django.contrib import messages    
+from django.core.mail import send_mail   
+from django.conf import settings as conf_settings
    
 def home(request):
-    if request.method=="POST":
-        name=request.POST["names"]
-        doctor=request.POST["doctor"]
-        email=request.POST["emails"]
-        messages=request.POST["info"]
-        
-     
-       
+    dentist=Dentist.objects.all()
+    context={"dentist":dentist}
+    return render(request,"Fit/spindex.html",context)
+
+
+class AppointmentView(View):
+    template_name='Fit/appointment.html'
+    form_class=AppointmentForm
+    def get(self,request,*args, **kwargs):
+        context={"form":AppointmentForm}
+        return render(request,self.template_name,context)
     
-
-
-        
-        user=Appoint.objects.create(patient_name=name,email=email,doctor_name=doctor,message=messages)
-        user.save()
-        return redirect("services")
-
-    else:
-        return render(request,"Fit/spindex.html",{})
-
-
-           
-    
-    
-   
+    def post(self,request,*args, **kwargs):
+        prof=request.user
+        form=AppointmentForm(request.POST,instance=prof)
+        if form.is_valid():
+            form.save()
+        return redirect("home")
 
 
 
-   
-
-# def test(request):
-#     return render(request,"Fit/test.html",{})
-
-def blog(request):
-    return render(request,"Fit/blog.html",{})
 
 def contact(request):
-    
     return render(request,"Fit/contact.html",{})
+
+    
+  
 
 def about(request):
     return render(request,"Fit/about.html",{})
 
-def doctors(request):
-    return render(request,"Fit/doctors.html",{})
+def Dentists(request):
+    dentist=Dentist.objects.all()
+    context={"dentist":dentist}
+    return render(request,"Fit/Dentists.html",context)
 
 def blog_single(request):
     return render(request,"Fit/blog-single.html",{})
@@ -149,6 +119,29 @@ def Appointment(request):
 
 def admin(request):
     return render(request,"Fit/admin.html",{})
+
+
+
+    
+class Profile(View):
+    template_name="Fit/userprofile.html"
+    form_class=ProfileForm
+    model_class=UserProfile
+  
+
+
+    def get(self,request,*args, **kwargs):
+        context={"forms":ProfileForm}
+        return render(request,self.template_name,context)
+    
+    def post(self,request,*args, **kwargs):
+        prof=request.user
+        form=ProfileForm(request.POST,request.FILES,instance=prof)
+        if form.is_valid():
+            form.save()
+            return redirect("profile")
+        else:
+            return HttpResponse('<h1>Page not found</h1>')
 
        
        
