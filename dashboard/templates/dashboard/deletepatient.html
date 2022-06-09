@@ -1,0 +1,184 @@
+{% extends 'dashboard/base_template.html' %}
+{% block dashboard-page-active %}mm-active{% endblock %}
+{% block pagetitle %}Dashboard{% endblock %} {% block content %}
+<style>
+    .fixed_headers {
+        width: 750px;
+        table-layout: fixed;
+        border-collapse: collapse;
+      }
+      .fixed_headers th {
+        text-decoration: underline;
+      }
+      .fixed_headers th,
+      .fixed_headers td {
+        padding: 5px;
+        text-align: left;
+      }
+      .fixed_headers td:nth-child(1),
+      .fixed_headers th:nth-child(1) {
+        min-width: 200px;
+      }
+      .fixed_headers td:nth-child(2),
+      .fixed_headers th:nth-child(2) {
+        min-width: 200px;
+      }
+      .fixed_headers td:nth-child(3),
+      .fixed_headers th:nth-child(3) {
+        width: 350px;
+      }
+      .fixed_headers thead {
+        background-color: #333;
+        color: #FDFDFD;
+      }
+      .fixed_headers thead tr {
+        display: block;
+        position: relative;
+      }
+      .fixed_headers tbody {
+        display: block;
+        overflow: auto;
+        width: 100%;
+        height: 300px;
+      }
+      .fixed_headers tbody tr:nth-child(even) {
+        background-color: #DDD;
+      }
+      .old_ie_wrapper {
+        height: 300px;
+        width: 750px;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+      .old_ie_wrapper tbody {
+        height: auto;
+      }
+      .card-main{
+          width:50%;
+          margin: auto;
+      }
+      @media (max-width: 767.98px) {
+          .card-main{
+              width: 100%;
+          }
+    }
+      
+</style>
+
+
+<div class="app-main__inner">
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="fa-solid fa-delete-left"></i>
+                </div>
+                <div>Delete Patient
+                    <div class="page-title-subheading">Hi, welcome back</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-card mb-12">
+        <h5 class="card-title" style="width: 40%; margin: auto;">Delete</h5>
+
+            <div class="row">
+                <div class="card-main">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="main">
+                        <!-- Create a Form -->
+                        <form method="POST">
+                            <!-- Security token by Django -->
+                            {% csrf_token %}
+                            Are you want to delete this item ?
+                            <input class="btn btn-danger" type="submit" value="delete">
+                            
+                            <a href="{%url 'dashboard:patient'%}"><input class="btn btn-primary" type="text" value="cancel"></a>
+                        </form>
+                    </div>
+                    
+                    </div>
+                  </div>
+            </div>
+            {% comment %} <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content">
+                    <div class="widget-content-outer">
+                        <div class="widget-content-wrapper">
+                            <div class="widget-content-left">
+                                <div class="widget-heading">Posts</div>
+                                <div class="widget-subheading">Total Number of Posts</div>
+                            </div>
+                            <div class="widget-content-right">
+                                <div class="widget-numbers text-primary">Notin</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div> {% endcomment %}
+            {% comment %} <div class="col-md-6">
+                <div class="card mb-3 widget-content">
+                    <div class="widget-content-outer">
+                        <div class="widget-content-wrapper">
+                            <div class="widget-content-left">
+                                <div class="widget-heading">Services</div>
+                                <div class="widget-subheading">Total Number of Services</div>
+                            </div>
+                            <div class="widget-content-right">
+                                <div class="widget-numbers text-warning">service</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h5 class="ml-2">About Sinel Hospital</h5> {% endcomment %}
+
+        {% comment %} <div class="row">
+            <div class="col-md-6 p-2">
+                <div class="card">
+                    <div class="card-body mb-3">
+                        <h5 class="card-title">Overview</h5>
+                       Hospital
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 p-2">
+                <div class="card">
+                    <div class="card-body mb-3">
+                        <h5 class="card-title">Mission</h5>
+                       about mission
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 p-2">
+                <div class="card">
+                    <div class="card-body mb-3">
+                        <h5 class="card-title">Vision</h5>
+                      about vision
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 p-2">
+                <div class="card">
+                    <div class="card-body mb-3">
+                        <h5 class="card-title">Value</h5>
+                        about value
+                    </div>
+                </div>
+            </div>
+
+
+        </div> {% endcomment %}
+
+
+
+
+
+    </div>
+</div>
+{% endblock %}

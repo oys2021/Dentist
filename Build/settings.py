@@ -39,9 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Fit',
+    'dashboard',
+    'accounts',
+    'rest_framework',
+    'dentistapi',
+    'corsheaders',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -50,7 +57,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+PHONENUMBER_DB_FORMAT = 'NATIONAL'
+PHONENUMBER_DEFAULT_REGION = "US"
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOWED_ORIGINS = [
+    "https://example.com",
+    "https://sub.example.com",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
 ROOT_URLCONF = 'Build.urls'
 
 TEMPLATES = [
@@ -129,3 +144,10 @@ MEDIA_ROOT=os.path.join(BASE_DIR,"static/images")
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_HOST_USER=os.environ.get('DJANGO_EMAIL_TESTING_ACCOUNT_NAME')
+EMAIL_HOST_PASSWORD=os.environ.get('DJANGO_EMAIL_TESTING_ACCOUNT_PASSWORD')
+EMAIL_USE_TLS=True
+
